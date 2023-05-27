@@ -1,0 +1,48 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+
+div.modal-content{
+    border-radius: 20px;
+    background-color: #ffffffe6;
+}
+
+div.card{
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.499);
+    border-radius: 20px;
+    overflow: hidden;
+    width: 300px;
+    padding: 0;
+}
+div.modal-content div.card{
+    box-shadow: none;
+}
+div.card img{
+    height: 400px;
+}
+
+div.card div.card-body{
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-between;
+}
+
+div.in-cart{
+    position: relative;
+    transform: scale(0.9);
+    transition: all 0.5s ease-in-out;
+}
+
+div.in-cart::after{
+    position: absolute;
+    content: "";
+    inset: 0;
+    box-shadow: none;
+    background-color: #00000072;
+    z-index: 1;
+    border-radius: 20px;
+}
