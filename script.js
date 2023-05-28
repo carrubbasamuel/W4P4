@@ -66,6 +66,20 @@ class Book {
     }
 }
 
+//*function to set the total price of the cart
+function setPrice(){
+    let totalPrice = document.getElementById('total-price');
+    if(cartArray.length === 0){
+        totalPrice.innerText = '0 €';
+    }else{
+        let price = 0;
+        cartArray.forEach(book => {
+            price += parseFloat(book.price);
+        });
+        totalPrice.innerText = price + ' €';
+    }
+}
+
 
   
 //*Function for delete all books from the cart
@@ -76,6 +90,7 @@ function deleteAllBooksCart() {
     let empty = document.getElementById('empty');
     empty.classList.remove('d-none');
     renderBooks();
+    setPrice();
 }
 
 
@@ -100,6 +115,7 @@ function removeCart(button) {
     });
 
     renderBooks(); // Aggiorna la visualizzazione dei libri dopo la rimozione sul root
+    setPrice();
     
     if (cartArray.length === 0) {
         let empty = document.getElementById('empty');
@@ -123,7 +139,9 @@ function addCart(button) {
     let img = bookCard.querySelector('img');
 
     let book = new Book(title.innerText, category.innerText, img.src, price.innerText);
+    book.price = book.price.replace('€', '');
     cartArray.push(book);
+    setPrice();
 
     cartArray.forEach(book => {
         let card = book.createCard;
@@ -180,6 +198,7 @@ function searchBooks() {
 ///*Main function call the renderBooks function and add the event listener to the search book only if the value is more than 3 characters
 function main(){
     renderBooks();
+    setPrice();
     document.getElementById('searchInput').addEventListener('keyup', function(){    
         const searchValue = this.value.trim();//*trim remove spaces in the value
         if(searchValue.length < 3) {
