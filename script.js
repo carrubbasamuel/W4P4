@@ -20,7 +20,7 @@ class Book {
     get createCard() {
         this.card = document.createElement('div');
         this.card.classList.add('card');
-        this.card.classList.add('col-3');
+        this.card.classList.add('col-6', 'col-md-4', 'col-lg-3', 'mb-3', 'mb-lg-0', 'p-0', 'mx-auto');
 
         let imgElement = document.createElement('img');
         imgElement.classList.add('img-fluid');

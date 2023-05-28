@@ -69,6 +69,7 @@ nav {
 }
 
 button[data-bs-toggle="modal"] {
+    z-index: 5;
     position: fixed;
     bottom: 50px;
     right: 150px;
