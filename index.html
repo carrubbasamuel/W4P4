@@ -14,7 +14,7 @@
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-          <a class="navbar-brand fs-1" href="#">EPICBook</a>
+          <a class="navbar-brand fs-1" href="#"><img width="150px" src="REad.png" alt=""></a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -37,38 +37,44 @@
             </ul>
             <form class="d-flex">
               <input id="searchInput" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-              <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
             <!-- Modal Cart -->
             <!-- Button trigger modal -->
-            <button type="button" class="btn btn-success ms-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                <i class="fa-solid fa-cart-arrow-down"></i>
-            </button>
-
-            <!-- Modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-xl">
-                <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">CART</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div id="cart" class="modal-body row gap-2">
-                    <div>
-                        <p>empty</p>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <!-- TOTAL PRICE -->
-                </div>
-                </div>
-            </div>
-            </div>
           </div>
         </div>
       </nav>
 
+      <button type="button" class="btn btn-success ms-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        <i class="fa-solid fa-cart-arrow-down"></i>
+    </button>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title fs-1" id="exampleModalLabel">Your Cart </h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div id="cart" class="row gap-2">
+                <!-- cartBooks -->
+            </div>
+            <div id="empty">
+                <h1 class="text-center">Empty Cart</h1>
+                <i class="fa-solid fa-cart-plus"></i>
+                <p class="mt-2">Continue to shopping...</a></p>
+            </div>
+        </div>
+        <div class="modal-footer justify-content-between">
+            <p class="fs-3 fw-bold">Totale: <span id="count"></span></p>
+            <button type="button" class="btn btn-danger" onclick="delateAllBooksCart()"><i class="fa-solid fa-trash"></i></button>
+        </div>
+        </div>
+    </div>
+    </div>
+
       <section class="container mt-5">
+        <h2 class="m-4 fs-1">Choose your books...</h2>
         <div id="root" class="row gap-4 justify-content-center">
 
         </div>

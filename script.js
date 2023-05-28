@@ -65,27 +65,30 @@ class Book {
         return this.card;
     }
 }
-  
 
-//*Function to remove books from the cart use the Book class for create cart item
+
+  
+//*Function for delete all books from the cart
+function deleteAllBooksCart() {
+    let cart = document.getElementById('cart');
+    cart.innerHTML = '';
+    cartArray = [];
+    let empty = document.getElementById('empty');
+    empty.classList.remove('d-none');
+    renderBooks();
+}
+
+
+//*Function to remove books from the cart use the Book class for create cart item. Call by AddCart function
 function removeCart(button) {
     let cart = document.getElementById('cart');
-    if(cart.innerHTML = ''){
-        let cart = document.getElementById('cart');
-        let p = document.createElement('p');
-        p.innerText = 'Your cart is empty';
-        cart.appendChild(p);
-    }else{
-        cart.innerHTML = '';
-    
-        let bookCard = button.closest('.card');
-        let title = bookCard.querySelector('.card-title');
-    
-        cartArray = cartArray.filter(item => item.title !== title.innerText);
-    
-        cartArray.forEach(book => {
+    let bookCard = button.closest('.card');
+    let title = bookCard.querySelector('.card-title');
+
+    cartArray = cartArray.filter(item => item.title !== title.innerText);
+    cart.innerHTML = '';
+    cartArray.forEach(book => {
         let card = book.createCard;
-        bookCard.classList.add('in-cart'); // Aggiungi la classe "in-cart"
         let cardButton = card.querySelector('button');
         cardButton.classList.remove('btn-outline-success');
         cardButton.classList.add('btn-outline-danger');
@@ -93,21 +96,26 @@ function removeCart(button) {
         cardButton.addEventListener('click', function(event) {
             removeCart(event.target);
         });
-    
         cart.appendChild(card);
-        });
+    });
+
+    renderBooks(); // Aggiorna la visualizzazione dei libri dopo la rimozione sul root
     
-        renderBooks(); // Aggiorna la visualizzazione dei libri dopo la rimozione sul root
+    if (cartArray.length === 0) {
+        let empty = document.getElementById('empty');
+        empty.classList.remove('d-none');
     }
-    
-  }
+}
 
 
-//*Function to add books to the cart use the Book class for create cart item
+
+//*Function to add books to the cart use the Book class for create cart item. Call by class Book
 function addCart(button) {
+    let empty = document.getElementById('empty');
+    empty.classList.add('d-none');
+
     let cart = document.getElementById('cart');
     cart.innerHTML = '';
-    
     let bookCard = button.closest('.card'); //! Search the closest parent with the class card in DOM(like querySelector)
     let title = bookCard.querySelector('.card-title');
     let category = bookCard.querySelector('.card-text');
@@ -132,6 +140,8 @@ function addCart(button) {
     
 }
 
+
+
 ///*Function to render books on the page use the Book class and the getBooks for API request
 function renderBooks() {
     getBooks().then(books => {
@@ -149,14 +159,6 @@ function renderBooks() {
     });
 }
 
-///*Function to clone the array of books and render the books on the page
-function searchClone() {
-    let root = document.getElementById('root');
-    cartArray.forEach(book => {
-        let corr = array.find(item => item.title === book.title);
-        let card = corr.createCard;
-    });
-}
 
 
 ///*Function to search books on the page use the Book class and the getBooks for API request
@@ -172,7 +174,6 @@ function searchBooks() {
         });
     });
 }
-
 
 
 

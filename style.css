@@ -46,3 +46,28 @@ div.in-cart::after{
     z-index: 1;
     border-radius: 20px;
 }
+
+
+div#empty{
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    min-height: 200px;
+}
+
+div#empty i{
+    margin-top: 30px;
+    font-size: 70px;
+    color: black;
+}
+
+nav {
+    height: 150px;
+}
+
+button[data-bs-toggle="modal"]{
+    position: fixed;
+    bottom: 50px;
+    right: 150px;
+}
