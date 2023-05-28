@@ -1,4 +1,4 @@
-<!doctype html>
+<!Doctype html>
 <html lang="en">
   <head>
     <!-- Required meta tags -->
@@ -23,21 +23,13 @@
               <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="#">Home</a>
               </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Categories
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <li><a class="dropdown-item" href="#">Action</a></li>
-                  <li><a class="dropdown-item" href="#">Another action</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="#">Something else here</a></li>
-                </ul>
-              </li>
+              
             </ul>
           </div>
         </div>
       </nav>
+
+
       <div class="container mt-5">
         <div class="row">
           <form class="d-flex">
@@ -50,38 +42,51 @@
 
       <!-- Modal Cart -->
       <!-- Button trigger modal -->
-    <button type="button" class="btn ms-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
-        <i class="fa-solid fa-cart-arrow-down"></i>
-    </button>
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
-        <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title fs-1" id="exampleModalLabel">Your Cart </h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-            <div id="cart" class="row gap-2">
-                <!-- cartBooks -->
-            </div>
-            <div id="empty">
-                <h1 class="text-center">Empty Cart</h1>
-                <i class="fa-solid fa-cart-plus"></i>
-                <p class="mt-2">Continue to shopping...</a></p>
-            </div>
-        </div>
-        <div class="modal-footer justify-content-between">
-            <p class="fs-3 fw-bold">Totale: <span id="total-price"></span></p>
-            <button type="button" class="btn btn-danger" onclick="deleteAllBooksCart()"><i class="fa-solid fa-trash"></i></button>
-        </div>
-        </div>
-    </div>
-    </div>
+      <button type="button" class="btn ms-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
+          <i class="fa-solid fa-cart-arrow-down"></i>
+      </button>
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-xl">
+          <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title fs-1" id="exampleModalLabel">Your Cart </h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+              <div id="cart" class="row gap-2">
+
+
+
+
+                  <!-- CartBooks -->
+
+
+
+                  
+              </div>
+              <div id="empty">
+                  <h1 class="text-center">Empty Cart</h1>
+                  <i class="fa-solid fa-cart-plus"></i>
+                  <p class="mt-2">Continue to shopping...</a></p>
+              </div>
+          </div>
+          <div class="modal-footer justify-content-between">
+              <p class="fs-3 fw-bold">Totale: <span id="total-price"></span></p>
+              <button type="button" class="btn btn-danger" onclick="deleteAllBooksCart()"><i class="fa-solid fa-trash"></i></button>
+          </div>
+          </div>
+      </div>
+      </div>
 
       <section class="container mt-5">
-        
-        <div id="root" class="row gap-4 justify-content-center">a
+        <div id="root" class="row gap-4 justify-content-center">
+
+
+
+          <!-- Books -->
+
+
 
         </div>
       </section>

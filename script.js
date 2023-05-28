@@ -9,7 +9,7 @@ async function getBooks() {
 let cartArray = [];//*Array to store the books in the cart used by addCart function and removeCart function
   
 
-//*Class Book with the constructor and the getter for create the card of the book to put in a row and the cart
+//*Class Book with the constructor and the getter for create the card of the book to put in a row and or in the cart
 class Book {
     constructor(title, category, img, price) {
         this.title = title;
@@ -18,9 +18,8 @@ class Book {
         this.price = price;
     }
     get createCard() {
-        this.card = document.createElement('div');
-        this.card.classList.add('card');
-        this.card.classList.add('col-6', 'col-md-4', 'col-lg-3', 'mb-3', 'mb-lg-0', 'p-0', 'mx-auto');
+        let card = document.createElement('div');
+        card.classList.add('card', 'col-6', 'col-md-4', 'col-lg-3');
 
         let imgElement = document.createElement('img');
         imgElement.classList.add('img-fluid');
@@ -42,17 +41,14 @@ class Book {
         cardPrice.innerText = this.price + '€';
 
         let cardButton = document.createElement('button');
-        cardButton.classList.add('btn');
-        cardButton.classList.add('btn-outline-success');
+        cardButton.classList.add('btn','btn-outline-success');
         cardButton.innerText = 'Add to cart';
         cardButton.addEventListener('click', function(event){
             addCart(event.target);
         });
 
         let i = document.createElement('i');
-        i.classList.add('fas');
-        i.classList.add('fa-cart-plus');
-        i.classList.add('ms-2');
+        i.classList.add('fas','fa-cart-plus', 'ms-2');
         cardButton.appendChild(i);
 
         cardBody.appendChild(cardTitle);
@@ -60,9 +56,9 @@ class Book {
         cardBody.appendChild(cardPrice);
         cardBody.appendChild(cardButton);
 
-        this.card.appendChild(imgElement);
-        this.card.appendChild(cardBody);
-        return this.card;
+        card.appendChild(imgElement);
+        card.appendChild(cardBody);
+        return card;
     }
 }
 
@@ -81,8 +77,7 @@ function setPrice(){
 }
 
 
-  
-//*Function for delete all books from the cart
+//*Function for delete all books from the cart. Call in HTML
 function deleteAllBooksCart() {
     let cart = document.getElementById('cart');
     cart.innerHTML = '';
@@ -125,7 +120,7 @@ function removeCart(button) {
 
 
 
-//*Function to add books to the cart use the Book class for create cart item. Call by class Book
+//*Function to add books to the cart use the Book class for create cart item. Function call by getter on the Book class
 function addCart(button) {
     let empty = document.getElementById('empty');
     empty.classList.add('d-none');
@@ -139,13 +134,13 @@ function addCart(button) {
     let img = bookCard.querySelector('img');
 
     let book = new Book(title.innerText, category.innerText, img.src, price.innerText);
+    bookCard.classList.add('in-cart'); // Aggiungi la classe "in-cart"
     book.price = book.price.replace('€', '');
     cartArray.push(book);
     setPrice();
 
     cartArray.forEach(book => {
         let card = book.createCard;
-        bookCard.classList.add('in-cart'); // Aggiungi la classe "in-cart"
         let cardButton = card.querySelector('button');
         cardButton.classList.remove('btn-outline-success');
         cardButton.classList.add('btn-outline-danger');
