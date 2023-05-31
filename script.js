@@ -1,23 +1,26 @@
 //*Function to get books from API
 async function getBooks() {
-    let request = await fetch('https://striveschool-api.herokuapp.com/books');
-    let books = await request.json();
-
+    let url = 'https://striveschool-api.herokuapp.com/books';
+    let response = await fetch(url);
+    let books = await response.json();
     return books;
 }
+  
+
 
 let cartArray = [];//*Array to store the books in the cart used by addCart function and removeCart function
-  
+
 
 //*Class Book with the constructor and the getter for create the card of the book to put in a row and or in the cart
 class Book {
-    constructor(title, category, img, price) {
+    constructor(asin, title, category, img, price) {
+        this.asin = asin;
         this.title = title;
         this.category = category;
         this.img = img;
         this.price = price;
     }
-    get createCard() {
+    get  createCard() {
         let card = document.createElement('div');
         card.classList.add('card', 'col-6', 'col-md-4', 'col-lg-3');
 
@@ -40,27 +43,60 @@ class Book {
         cardPrice.classList.add('card-text');
         cardPrice.innerText = this.price + '€';
 
+        //*Button to remove the visibility of the book in the cart
+        let displayNone = document.createElement('div');
+        displayNone.innerHTML = '<i class="bi bi-eye"></i>';
+        displayNone.classList.add('removeVisibility');
+        displayNone.addEventListener('click', () => {
+            card.remove();
+        });
+
+        let newDiv = document.createElement('div');
+
         let cardButton = document.createElement('button');
-        cardButton.classList.add('btn','btn-outline-success');
+        cardButton.classList.add('btn','btn-outline-success', 'rounded-pill', 'btn-block', 'add-cart');
         cardButton.innerText = 'Add to cart';
         cardButton.addEventListener('click', function(event){
             addCart(event.target);
         });
 
+        
+
+        
+        //*
+        let detailsCard = document.createElement('a');
+        detailsCard.classList.add('text-dark', 'me-2');
+        detailsCard.innerHTML = '<i class="bi bi-three-dots"></i>';
+        detailsCard.href = './details/dettagli.html' + `?id=${this.asin}`;
+        detailsCard.target = '_blank';
+
+
+
         let i = document.createElement('i');
         i.classList.add('fas','fa-cart-plus', 'ms-2');
         cardButton.appendChild(i);
 
+        newDiv.appendChild(cardButton);
+        newDiv.appendChild(detailsCard);
+        newDiv.classList.add('d-flex', 'justify-content-between','fs-2', 'align-items-center', 'mt-2');
+
         cardBody.appendChild(cardTitle);
         cardBody.appendChild(cardText);
         cardBody.appendChild(cardPrice);
-        cardBody.appendChild(cardButton);
+        cardBody.appendChild(displayNone);
+        cardBody.appendChild(newDiv);
 
         card.appendChild(imgElement);
         card.appendChild(cardBody);
         return card;
     }
 }
+
+// Memorizza l'istanza della classe nel localStorage o sessionStorage
+
+
+
+
 
 //*function to set the total price of the cart
 function setPrice(){
@@ -132,15 +168,19 @@ function addCart(button) {
     let category = bookCard.querySelector('.card-text');
     let price = bookCard.querySelector('.card-text:nth-child(3)');
     let img = bookCard.querySelector('img');
+    let details = bookCard.querySelector('a');
 
-    let book = new Book(title.innerText, category.innerText, img.src, price.innerText);
+    let book = new Book(details.href, title.innerText, category.innerText, img.src, price.innerText);
     bookCard.classList.add('in-cart'); // Aggiungi la classe "in-cart"
-    book.price = book.price.replace('€', '');
+    book.price = book.price.replace('€', ''); 
     cartArray.push(book);
     setPrice();
 
     cartArray.forEach(book => {
         let card = book.createCard;
+        //*remove the visibility of the book in the cart and change the button
+        card.querySelector('a').remove();
+        card.querySelector('.removeVisibility').remove();
         let cardButton = card.querySelector('button');
         cardButton.classList.remove('btn-outline-success');
         cardButton.classList.add('btn-outline-danger');
@@ -150,6 +190,8 @@ function addCart(button) {
         });
         cart.appendChild(card);
     });
+    localStorage.setItem('cartArray', JSON.stringify(cartArray));
+    
     
 }
 
@@ -162,7 +204,7 @@ function renderBooks() {
       root.innerHTML = '';
   
       books.forEach(book => {
-        let bookCard = new Book(book.title, book.category, book.img, book.price);
+        let bookCard = new Book(book.asin, book.title, book.category, book.img, book.price);
         let card = bookCard.createCard;
         if (cartArray.some(item => item.title === bookCard.title)) {//*Check if the book is in the cart
           card.classList.add('in-cart');
@@ -182,7 +224,7 @@ function searchBooks() {
         let root = document.getElementById('root');
         root.innerHTML = '';
         filteredBooks.forEach(book => {
-            let bookCard = new Book(book.title, book.category, book.img, book.price);
+            let bookCard = new Book(book.asin, book.title, book.category, book.img, book.price);
             root.appendChild(bookCard.createCard);
         });
     });

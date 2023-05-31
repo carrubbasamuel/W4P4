@@ -1,0 +1,47 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+
+
+.details-card{
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    width: 100%;
+    background-color: #f1f1f1;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+}
+
+.details-card img{
+    border-radius: 0 20px 20px 0;
+    width: 50%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.details-card p{
+    font-size: 1.5rem;
+    padding: 1rem;
+    text-align: justify;
+}
+
+
+.social-icons li a {
+    color: #555;
+    font-size: 24px;
+    margin-right: 10px;
+    transition: color 0.3s ease-in-out;
+}
+
+.social-icons li a:hover {
+   color: #333;
+}
+
+footer p {
+   margin-bottom: 0;
+}
