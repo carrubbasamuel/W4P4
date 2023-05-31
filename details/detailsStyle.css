@@ -45,3 +45,10 @@
 footer p {
    margin-bottom: 0;
 }
+
+
+div.spinner-grow{
+    padding: 50px;
+    margin-bottom: 200px;
+    color: #0000004f;
+}

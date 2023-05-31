@@ -9,6 +9,8 @@ async function getBooks() {
 
 
 let cartArray = [];//*Array to store the books in the cart used by addCart function and removeCart function
+let currentPage = 1; //* Pagina corrente
+
 
 
 //*Class Book with the constructor and the getter for create the card of the book to put in a row and or in the cart
@@ -45,7 +47,7 @@ class Book {
 
         //*Button to remove the visibility of the book in the cart
         let displayNone = document.createElement('div');
-        displayNone.innerHTML = '<i class="bi bi-eye"></i>';
+        displayNone.innerHTML = '<i class="bi bi-eye-slash"></i>';
         displayNone.classList.add('removeVisibility');
         displayNone.addEventListener('click', () => {
             card.remove();
@@ -60,10 +62,7 @@ class Book {
             addCart(event.target);
         });
 
-        
-
-        
-        //*
+        //*Button details to open a new tab with the details of the book
         let detailsCard = document.createElement('a');
         detailsCard.classList.add('text-dark', 'me-2');
         detailsCard.innerHTML = '<i class="bi bi-three-dots"></i>';
@@ -92,9 +91,6 @@ class Book {
     }
 }
 
-// Memorizza l'istanza della classe nel localStorage o sessionStorage
-
-
 
 
 
@@ -113,6 +109,8 @@ function setPrice(){
 }
 
 
+
+
 //*Function for delete all books from the cart. Call in HTML
 function deleteAllBooksCart() {
     let cart = document.getElementById('cart');
@@ -125,6 +123,8 @@ function deleteAllBooksCart() {
 }
 
 
+
+
 //*Function to remove books from the cart use the Book class for create cart item. Call by AddCart function
 function removeCart(button) {
     let cart = document.getElementById('cart');
@@ -135,6 +135,8 @@ function removeCart(button) {
     cart.innerHTML = '';
     cartArray.forEach(book => {
         let card = book.createCard;
+        card.querySelector('a').remove();
+        card.querySelector('.removeVisibility').remove();
         let cardButton = card.querySelector('button');
         cardButton.classList.remove('btn-outline-success');
         cardButton.classList.add('btn-outline-danger');
@@ -190,29 +192,97 @@ function addCart(button) {
         });
         cart.appendChild(card);
     });
-    localStorage.setItem('cartArray', JSON.stringify(cartArray));
-    
-    
+
 }
 
 
 
-///*Function to render books on the page use the Book class and the getBooks for API request
+
+
+//*Function for change the page
+function goToPage(page) {
+    currentPage = page;
+    renderBooks();
+}
+
+
+//*Function to go to the previous page
+function goToPreviousPage() {
+    if (currentPage > 1) {
+        currentPage--;
+        renderBooks();
+    }
+}
+  
+
+
+//*Function to go to the next page
+function goToNextPage() {
+    let totalPages = localStorage.getItem('totalPages');//*get the total pages from the localStorage store in the browser
+    if(currentPage < totalPages){
+        currentPage++;
+        renderBooks();
+    }
+}
+  
+  
+
+
+//*Function to generate the pagination links
+function generatePaginationLinks(totalPages) {
+    const paginationContainer = document.getElementById('pagination-container');
+    paginationContainer.innerHTML = '';
+
+    for (let i = 1; i <= totalPages; i++) {
+        const link = document.createElement('li');
+        link.classList.add('page-item','page-link');
+        link.innerText = i;
+        link.addEventListener('click', function() {
+            goToPage(i);
+        });
+
+        paginationContainer.appendChild(link);
+    }
+    localStorage.setItem('totalPages', totalPages);
+}
+
+
+//*Function to initialize the pagination
+function initializePagination() {
+    getBooks().then(books => {
+        const totalPages = Math.ceil(books.length / 8); // Calcola il numero totale di pagine
+        generatePaginationLinks(totalPages);
+    });
+}
+  
+
+
+
+
 function renderBooks() {
     getBooks().then(books => {
       let root = document.getElementById('root');
       root.innerHTML = '';
   
-      books.forEach(book => {
+      const itemsPerPage = 8; // Numero di libri per pagina
+      const startIndex = (currentPage - 1) * itemsPerPage;
+      const endIndex = startIndex + itemsPerPage;
+      const booksToRender = books.slice(startIndex, endIndex);
+  
+      booksToRender.forEach(book => {
         let bookCard = new Book(book.asin, book.title, book.category, book.img, book.price);
         let card = bookCard.createCard;
-        if (cartArray.some(item => item.title === bookCard.title)) {//*Check if the book is in the cart
+        if (cartArray.some(item => item.title === bookCard.title)) {
           card.classList.add('in-cart');
         }
         root.appendChild(card);
       });
     });
 }
+  
+
+
+
 
 
 
@@ -235,6 +305,7 @@ function searchBooks() {
 ///*Main function call the renderBooks function and add the event listener to the search book only if the value is more than 3 characters
 function main(){
     renderBooks();
+    initializePagination();
     setPrice();
     document.getElementById('searchInput').addEventListener('keyup', function(){    
         const searchValue = this.value.trim();//*trim remove spaces in the value

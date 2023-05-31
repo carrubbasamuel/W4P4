@@ -71,20 +71,27 @@ nav {
 
 button[data-bs-toggle="modal"] {
     z-index: 5;
+    width: 100px;
+    height: 100px;
     position: fixed;
     bottom: 50px;
     right: 150px;
-    padding: 40px;
+    padding: 20px;
     border-radius: 50%;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.199);
 }
 button[data-bs-toggle="modal"]  i{
-    position: absolute;
-    top: 25px;
     color: #FF8ED1!important;
     right: 24px;
-    font-size: 30px;
-    color: white;
+    font-size: 30px!important;
+}
+
+button[data-bs-toggle="modal"]:hover{
+    background-color: #FF8ED1!important;
+}
+
+button[data-bs-toggle="modal"]:hover i{
+    color: white!important;
 }
 
 
@@ -116,12 +123,23 @@ input#searchInput{
 
 
 .removeVisibility{
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem!important;
+    background-color: rgba(255, 255, 255, 0.855);
     border-radius: 50%;
-    height: 50px;
-    width: 50px;
+    height: 40px;
+    width: 40px;
     position: absolute;
     top: 10px;
 }
+
+.removeVisibility:hover{
+    background-color: rgba(255, 255, 255, 0.322);
+}
+
 
 .social-icons li a {
     color: #555;
@@ -137,3 +155,11 @@ input#searchInput{
   footer p {
     margin-bottom: 0;
   }
+
+
+ul#pagination-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+}
