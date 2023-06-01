@@ -7,6 +7,11 @@
     box-sizing: border-box;
 }
 
+
+
+body{
+    margin-top: 200px;
+}
 div.modal-content{
     border-radius: 20px;
     background-color: #ffffffe6;
@@ -63,17 +68,27 @@ div#empty i{
     color: black;
 }
 
-nav {
-    background-color: white!important;
+nav.fixed-top {
+    overflow: hidden;
     z-index: 5;
     height: 150px;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.199);
+    background-color: #FFF6FB!important;
 }
+
+button[data-bs-toggle="modal"]:focus{
+    box-shadow: 0 0 0 0.25rem rgba(255, 142, 209, 0.25);
+}
+
+
+
 
 button[data-bs-toggle="modal"] {
     z-index: 5;
     width: 100px;
     height: 100px;
     position: fixed;
+    margin-bottom: 150px;
     bottom: 50px;
     right: 150px;
     padding: 20px;

@@ -95,18 +95,20 @@ class Book {
 
 
 //*function to set the total price of the cart
-function setPrice(){
+function setPrice() {
     let totalPrice = document.getElementById('total-price');
-    if(cartArray.length === 0){
-        totalPrice.innerText = '0 €';
-    }else{
-        let price = 0;
-        cartArray.forEach(book => {
-            price += parseFloat(book.price);
-        });
-        totalPrice.innerText = price + ' €';
+    
+    if (cartArray.length === 0) {
+      totalPrice.innerText = '0 €';
+    } else {
+      let price = 0;
+      cartArray.forEach(book => {
+        price += parseFloat(book.price);
+      });
+      totalPrice.innerText = price.toFixed(2) + ' €';
     }
-}
+  }
+  
 
 
 
